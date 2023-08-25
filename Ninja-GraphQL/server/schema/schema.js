@@ -1,3 +1,15 @@
+// Set up Types like BookType, 
+// Create Queries to make queries Upon types like BookType 
+
+// export queries and mutation methods like below 
+
+// module.exports = new GraphQLSchema({
+//     query: RootQuery,
+//     mutation: Mutation
+// });
+
+
+
 const graphql = require('graphql');
 const Book = require('../models/book');
 const Author = require('../models/author');
