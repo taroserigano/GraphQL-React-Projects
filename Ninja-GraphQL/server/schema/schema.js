@@ -25,6 +25,9 @@ const {
     GraphQLNonNull
 } = graphql;
 
+// when you refer Book, 
+// it'll automatically also output associated Author 
+// thanks to the filter method 
 const BookType = new GraphQLObjectType({
     name: 'Book',
     fields: ( ) => ({
@@ -55,9 +58,13 @@ const AuthorType = new GraphQLObjectType({
     })
 });
 
+
+// create Queries below 
+
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
+        // find Book by ID 
         book: {
             type: BookType,
             args: { id: { type: GraphQLID } },
@@ -72,6 +79,7 @@ const RootQuery = new GraphQLObjectType({
                 return Author.findById(args.id);
             }
         },
+        // find All Books 
         books: {
             type: new GraphQLList(BookType),
             resolve(parent, args){
@@ -90,17 +98,22 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
+        // create "addAuthor" method
         addAuthor: {
             type: AuthorType,
+            // add args Types 
             args: {
                 name: { type: GraphQLString },
                 age: { type: GraphQLInt }
-            },
+            }, 
+            // perform queries
+            // use the arguments 
             resolve(parent, args){
                 let author = new Author({
                     name: args.name,
                     age: args.age
                 });
+            // save the created Author 
                 return author.save();
             }
         },
