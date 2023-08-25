@@ -30,6 +30,9 @@ class AddBook extends Component {
                 genre: this.state.genre,
                 authorId: this.state.authorId
             },
+
+            // you have to refetch in order to reflect updates 
+            // kinda like useEffect for varibles [books] 
             refetchQueries: [{ query: getBooksQuery }]
         });
     }
